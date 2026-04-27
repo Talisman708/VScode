@@ -1,32 +1,3 @@
-  # name: My first workflow
-  # on: push
-  # jobs:
-  # say-hello:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Print message
-  #       run: echo "Hello, github Actions!"
-  #     - name: Print message again
-  #       run: echo "Tanish Setia"
-  # say-bye:
-  #   needs: say-hello
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Print message
-  #       run: echo "bye from 2nd job"
-
-# name: User actions
-# on: push
-# jobs:
-#   test:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v4
-
-#       - name: list file
-#         run: ls
-
 name: using artifacts to communicate between VMs
 on: push
 jobs:
