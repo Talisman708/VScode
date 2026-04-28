@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "fse_class",
   "version": "1.0.0",
   "description": "Random",
