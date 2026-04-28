@@ -1,25 +1,74 @@
-name: using artifacts to communicate between VMs
-on: push
+# name: using artifacts to communicate between VMs
+# on: push
+# jobs:
+#   job1:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: create a file
+#         run: echo "Hello World" > file.txt
+#       - name: upload on artifact
+#         uses: actions/upload-artifact@v4
+#         with:
+#           name: my-file
+#           path: file.txt
+
+#   job2:
+#     needs: job1
+#     runs-on: ubuntu-latest
+#     steps: 
+#       - name: download a file
+#         uses: actions/download-artifact@v4
+#         with:
+#           name: my-file
+
+#       - name: read file.txt
+#         run: cat file.txt
+
+
+
+
+name: Lint and Test
+
+on:
+  push:
+  pull_request:
+
 jobs:
-  job1:
+  lint:
+    name: Run ESLint
     runs-on: ubuntu-latest
+
     steps:
-      - name: create a file
-        run: echo "Hello World" > file.txt
-      - name: upload on artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: my-file
-          path: file.txt
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  job2:
-    needs: job1
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run ESLint
+        run: npx eslint .
+
+  test:
+    name: Run Tests
     runs-on: ubuntu-latest
-    steps: 
-      - name: download a file
-        uses: actions/download-artifact@v4
-        with:
-          name: my-file
+    needs: lint
 
-      - name: read file.txt
-        run: cat file.txt
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Tests
+        run: npm test
